@@ -1,0 +1,24 @@
+cmake_minimum_required(VERSION 3.1)
+set(CUDA_BUILD_CUBIN OFF)
+set(CUDA_64_BIT_DEVICE_CODE "ON")
+project(btree_tests LANGUAGES CXX CUDA)
+
+set(TARGET btree_tests CMAKE_CXX_STANDARD 14)
+set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS} -Xcompiler -Wall)
+
+set (BTREE_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/include/")
+set (GSTL_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/../gstl/include/")
+set (THIRDPARTY_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty/")
+set (TEST_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/tests/")
+
+include_directories(${BTREE_INCLUDES} ${GSTL_INCLUDES} ${THIRDPARTY_INCLUDES} ${TEST_FOLDER})
+
+set(TESTS_SOURCES ${TEST_FOLDER})
+
+
+file(GLOB SOURCES
+		${TESTS_SOURCES}/*.cpp
+		${TESTS_SOURCES}/*.cu
+	)
+
+add_executable(btree_tests ${SOURCES})
