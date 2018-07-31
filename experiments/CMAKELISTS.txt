@@ -1,0 +1,42 @@
+cmake_minimum_required(VERSION 3.1)
+set(CUDA_BUILD_CUBIN OFF)
+set(CUDA_64_BIT_DEVICE_CODE "ON")
+project(experiments LANGUAGES CXX CUDA)
+set(TARGET experiments CMAKE_CXX_STANDARD 17)
+set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} /W3")
+
+set (GSTL_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/../gstl/include/")
+set (BTREE_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/../btree/include/")
+set (LSM_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/../LSM/include/")
+set (XFASTTRIE_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/../xfasttrie/include/")
+set (THIRDPARTY_INCLUDES "${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty/")
+
+
+
+
+set (HASHMAP_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/concurrent-hashmap/")
+
+include_directories(${HASHMAP_FOLDER} ${GSTL_INCLUDES} ${THIRDPARTY_INCLUDES})
+
+
+file(GLOB HASHMAP_SOURCES
+		${HASHMAP_FOLDER}/*.cpp
+		${HASHMAP_FOLDER}/*.cu
+	)
+
+add_executable(hashmap_benchmark ${HASHMAP_SOURCES})
+
+
+
+
+set (CONCURRENT_XFASTTRIE_FOLDER "${CMAKE_CURRENT_SOURCE_DIR}/concurrent-dictionary/")
+
+include_directories(${CONCURRENT_XFASTTRIE_FOLDER} ${GSTL_INCLUDES} ${BTREE_INCLUDES} ${LSM_INCLUDES} ${XFASTTRIE_INCLUDES} ${THIRDPARTY_INCLUDES})
+
+
+file(GLOB CONCURRENT_XFASTTRIE_SOURCES
+		${CONCURRENT_XFASTTRIE_FOLDER}/*.cpp
+		${CONCURRENT_XFASTTRIE_FOLDER}/*.cu
+	)
+
+add_executable(concurrent_xfasttrie_benchmark ${CONCURRENT_XFASTTRIE_SOURCES})

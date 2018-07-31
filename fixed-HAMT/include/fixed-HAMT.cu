@@ -1,21 +1,21 @@
-#include "vEB.cuh"
+#include "fixed-HAMT.cuh"
 
 #include "utility/print.cuh"
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::end()
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::end()
 {
 	return m_bottom.end();
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::const_iterator vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::end() const
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::const_iterator HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::end() const
 {
 	return m_bottom.end();
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::vEB(block_threads block, allocator_type& allocator, unsigned int expected_number_of_elements) :
+__device__ HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::HAMT(block_threads block, allocator_type& allocator, unsigned int expected_number_of_elements) :
 	m_allocator(&allocator)
 {
 	unsigned int power_of_two;
@@ -26,14 +26,14 @@ __device__ vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_B
 
 	auto warp = cooperative_groups::tiled_partition<32>(block);
 	if (block.thread_rank() < warp.size())
-		clear(warp, &m_vEB);
+		clear(warp, &m_HAMT);
 
 	new (&m_bottom) Map{ block, allocator, 1u << power_of_two };
 	block.sync();
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::vEB(threads group, allocator_type& allocator, unsigned int expected_number_of_elements) :
+__device__ HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::HAMT(threads group, allocator_type& allocator, unsigned int expected_number_of_elements) :
 	m_allocator(&allocator)
 {
 	unsigned int power_of_two;
@@ -42,13 +42,13 @@ __device__ vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_B
 	else
 		power_of_two = __ffs(expected_number_of_elements) - 1u;
 
-	clear(group, &m_vEB);
+	clear(group, &m_HAMT);
 
 	new (&m_bottom) Map{ block, allocator, 1u << power_of_two };
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ void vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::clear(block_threads block)
+__device__ void HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::clear(block_threads block)
 {
 	threads tile32 = cooperative_groups::tiled_partition<32>(block);
 
@@ -59,40 +59,40 @@ __device__ void vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ void vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::clear(threads group)
+__device__ void HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::clear(threads group)
 {
-	clear(group, &m_vEB);
+	clear(group, &m_HAMT);
 
 	m_bottom.clear(group);
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::find(key_type key)
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::find(key_type key)
 {
 	return m_bottom.find(key);
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::find(threads group, key_type key)
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::find(threads group, key_type key)
 {
 	return m_bottom.find(group, key);
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::const_iterator vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::find(threads group, key_type key) const
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::const_iterator HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::find(threads group, key_type key) const
 {
 	return m_bottom.find(group, key);
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::insert(threads group, key_type key, mapped_type value)
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::insert(threads group, key_type key, mapped_type value)
 {
 	auto it = m_bottom.find(group, key);
 	if (it != m_bottom.end())
 		return it;
 
 	unsigned int depth = 0u;
-	Node* current_node = &m_vEB;
+	Node* current_node = &m_HAMT;
 #ifdef VAN_EMDE_BOAS_DEBUG
 	if (group.thread_rank() == 0)
 		printf("%d\n\n", key);
@@ -172,7 +172,7 @@ __device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NU
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::predecessor(threads group, key_type key)
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::predecessor(threads group, key_type key)
 {
 	auto it = m_bottom.find(group, key);
 	if (it != m_bottom.end())
@@ -182,7 +182,7 @@ __device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NU
 	unsigned int depth = 0u;
 	unsigned int predecessor_depth = 0u;
 	Node* predecessor_node = nullptr;
-	Node* current_node = &m_vEB;
+	Node* current_node = &m_HAMT;
 	while (true)
 	{
 		if (is_leaf(depth))
@@ -236,19 +236,19 @@ __device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NU
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::size_type vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::size() const
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::size_type HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::size() const
 {
 	return m_bottom.size();
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ void vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::debug() const
+__device__ void HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::debug() const
 {
-	internal_debug(&m_vEB, 0, 0u);
+	internal_debug(&m_HAMT, 0, 0u);
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ void vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::internal_debug(const Node* node, unsigned int depth, key_type key) const
+__device__ void HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::internal_debug(const Node* node, unsigned int depth, key_type key) const
 {
 	if (is_leaf(depth))
 	{
@@ -290,13 +290,13 @@ __device__ void vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::Node* vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::INSERTING() const
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::Node* HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::INSERTING() const
 {
 	return reinterpret_cast<Node*>(10);
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::size_type vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::extract_bits(key_type key, unsigned int depth) const
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::size_type HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::extract_bits(key_type key, unsigned int depth) const
 {
 	unsigned int shift = (UNIVERSE - NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO * (depth + 1u));
 	unsigned int shifted_key = key >> shift;
@@ -313,13 +313,13 @@ __device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NU
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ bool vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::is_leaf(unsigned int depth) const
+__device__ bool HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::is_leaf(unsigned int depth) const
 {
 	return NUMBER_OF_LEVELS == depth;
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ void vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::clear(threads g, InternalNode* internal_node)
+__device__ void HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::clear(threads g, InternalNode* internal_node)
 {
 	unsigned int offset = 0u;
 	while (offset < NUMBER_OF_CHILDREN_PER_NODE)
@@ -330,14 +330,14 @@ __device__ void vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ void vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::clear(threads g, LeafNode* leaf_node)
+__device__ void HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::clear(threads g, LeafNode* leaf_node)
 {
 	for (unsigned int offset = 0u; offset != NUMBER_OF_ELEMENTS_AT_BOTTOM; offset += g.size())
 		leaf_node->bits[offset + g.thread_rank()].store_unatomically(0u);
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ unsigned int vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::relative_shift(unsigned int depth) const
+__device__ unsigned int HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::relative_shift(unsigned int depth) const
 {
 	if (depth + 1u == NUMBER_OF_LEVELS)
 	{
@@ -352,7 +352,7 @@ __device__ unsigned int vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::set(threads g, LeafNode* current_node, key_type key, mapped_type value)
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::set(threads g, LeafNode* current_node, key_type key, mapped_type value)
 {
 	auto local_bits = key & (NUMBER_OF_BITS_PER_NODE - 1u);
 	auto local_thid = local_bits / g.size();
@@ -364,7 +364,7 @@ __device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NU
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::find_max(threads g, Node* current_node, key_type discovered_bits, unsigned int depth)
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::find_max(threads g, Node* current_node, key_type discovered_bits, unsigned int depth)
 {
 	while (true)
 	{
@@ -388,7 +388,7 @@ __device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NU
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::MaxInfo vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::find_max(threads g, InternalNode* internal_node)
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::MaxInfo HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::find_max(threads g, InternalNode* internal_node)
 {
 	unsigned int work_to_do = NUMBER_OF_CHILDREN_PER_NODE;
 	unsigned int already_done = 0u;
@@ -411,7 +411,7 @@ __device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NU
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::find_max(threads g, LeafNode* leaf_node, key_type key)
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::iterator HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::find_max(threads g, LeafNode* leaf_node, key_type key)
 {
 	unsigned int local_offset = (NUMBER_OF_ELEMENTS_AT_BOTTOM / g.size()) - 1u;
 	do
@@ -440,7 +440,7 @@ __device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NU
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::PredecessorInfo vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::find_predecessor(threads g, InternalNode* internal_node, size_type bits)
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::PredecessorInfo HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::find_predecessor(threads g, InternalNode* internal_node, size_type bits)
 {
 	Node* previous = nullptr;
 	Node* current = nullptr;
@@ -475,7 +475,7 @@ __device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NU
 }
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>
-__device__ typename vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::PredecessorLeafInfo vEB<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::predecessor_leaf(threads g, LeafNode* leaf_node, key_type key)
+__device__ typename HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::PredecessorLeafInfo HAMT<Key, Value, NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO, NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO>::predecessor_leaf(threads g, LeafNode* leaf_node, key_type key)
 {
 	unsigned int local_bits = key & (NUMBER_OF_BITS_PER_NODE - 1u);
 	unsigned int local_offset = local_bits / g.size();

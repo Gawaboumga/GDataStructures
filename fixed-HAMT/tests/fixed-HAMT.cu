@@ -1,4 +1,4 @@
-#include "vEB.cuh"
+#include "fixed-HAMT.cuh"
 #include "Catch2/catch.hpp"
 #include "cuda/api_wrappers.h"
 
@@ -9,9 +9,9 @@
 
 using key_type = gpu::UInt32;
 using mapped_type = int;
-using vanEB = vEB<key_type, mapped_type, 6, 11>;
+using HAMT6 = HAMT<key_type, mapped_type, 6, 11>;
 
-SCENARIO("VAN-EMDE-BOAS-TRIE", "[VEB]")
+SCENARIO("VAN-EMDE-BOAS-TRIE", "[HAMT]")
 {
 	unsigned int NUMBER_OF_BLOCKS = 64u;
 	unsigned int NUMBER_OF_WARPS = 16u;
@@ -21,13 +21,13 @@ SCENARIO("VAN-EMDE-BOAS-TRIE", "[VEB]")
 	auto d_memory = cuda::memory::device::make_unique<char[]>(current_device, memory_size_allocated);
 	auto d_allocator = cuda::memory::device::make_unique<allocator_type>(current_device);
 
-	GIVEN("A vEB")
+	GIVEN("A HAMT")
 	{
-		auto d_vEB = cuda::memory::device::make_unique<vanEB>(current_device);
+		auto d_HAMT = cuda::memory::device::make_unique<HAMT6>(current_device);
 
-		cuda::launch(initialize_allocator<vanEB>,
+		cuda::launch(initialize_allocator<HAMT6>,
 			{ 1u, NUMBER_OF_WARPS * 32u },
-			d_allocator.get(), d_memory.get(), memory_size_allocated, d_vEB.get(), to_insert
+			d_allocator.get(), d_memory.get(), memory_size_allocated, d_HAMT.get(), to_insert
 		);
 
 		WHEN("We add elements in random order")
@@ -36,17 +36,17 @@ SCENARIO("VAN-EMDE-BOAS-TRIE", "[VEB]")
 			{
 				std::cout << to_insert << std::endl;
 				const std::clock_t begin_time = std::clock();
-				cuda::launch(test_insert_random<vanEB>,
+				cuda::launch(test_insert_random<HAMT6>,
 					{ NUMBER_OF_BLOCKS * 1u, NUMBER_OF_WARPS * 32u },
-					d_vEB.get(), to_insert
+					d_HAMT.get(), to_insert
 				);
 				cuda::device::current::get().synchronize();
 				std::cout << float(std::clock() - begin_time) / CLOCKS_PER_SEC;
 				fprintf(stderr, "GPUassert: %s %s %d\n", cudaGetErrorString(cudaPeekAtLastError()), __FILE__, __LINE__);
 				cuda::device::current::get().synchronize();
-				/*cuda::launch(test_retrieve_size<vanEB>,
+				/*cuda::launch(test_retrieve_size<HAMT6>,
 					{ 1u, 1u },
-					d_vEB.get(), to_insert
+					d_HAMT.get(), to_insert
 				);
 				cuda::device::current::get().synchronize();*/
 				/*cuda::launch(test_post_condition<XFastTrie>,
@@ -60,9 +60,9 @@ SCENARIO("VAN-EMDE-BOAS-TRIE", "[VEB]")
 		{
 			THEN("Ask for predecessors")
 			{
-				cuda::launch(test_predecessor_random<vanEB>,
+				cuda::launch(test_predecessor_random<HAMT6>,
 					{ 1u, 32u },
-					d_vEB.get(), to_insert
+					d_HAMT.get(), to_insert
 				);
 				cuda::device::current::get().synchronize();
 				fprintf(stderr, "GPUassert: %s %s %d\n", cudaGetErrorString(cudaPeekAtLastError()), __FILE__, __LINE__);

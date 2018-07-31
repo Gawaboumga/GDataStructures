@@ -1,0 +1,443 @@
+[==========] Running 21 benchmarks.
+[ RUN      ] ChainingInsertionFixture.Chaining (30 runs, 10 iterations per run)
+[     DONE ] ChainingInsertionFixture.Chaining (55905.320214 ms)
+[   RUNS   ]        Average time: 1863510.674 us (~833.784 us)
+                    Fastest time: 1862009.726 us (-1500.948 us / -0.081 %)
+                    Slowest time: 1864956.692 us (+1446.018 us / +0.078 %)
+                     Median time: 1863476.637 us (1st quartile: 1862861.243 us | 3rd quartile: 1864214.821 us)
+
+             Average performance: 0.53662 runs/s
+                Best performance: 0.53705 runs/s (+0.00043 runs/s / +0.08061 %)
+               Worst performance: 0.53621 runs/s (-0.00042 runs/s / -0.07754 %)
+              Median performance: 0.53663 runs/s (1st quartile: 0.53681 | 3rd quartile: 0.53642)
+
+[ITERATIONS]        Average time: 186351.067 us (~83.378 us)
+                    Fastest time: 186200.973 us (-150.095 us / -0.081 %)
+                    Slowest time: 186495.669 us (+144.602 us / +0.078 %)
+                     Median time: 186347.664 us (1st quartile: 186286.124 us | 3rd quartile: 186421.482 us)
+
+             Average performance: 5.36622 iterations/s
+                Best performance: 5.37054 iterations/s (+0.00433 iterations/s / +0.08061 %)
+               Worst performance: 5.36205 iterations/s (-0.00416 iterations/s / -0.07754 %)
+              Median performance: 5.36631 iterations/s (1st quartile: 5.36809 | 3rd quartile: 5.36419)
+[ RUN      ] ChainingGetFixture.Chaining (30 runs, 10 iterations per run)
+[     DONE ] ChainingGetFixture.Chaining (18782.983327 ms)
+[   RUNS   ]        Average time: 626099.444 us (~425.685 us)
+                    Fastest time: 624776.783 us (-1322.661 us / -0.211 %)
+                    Slowest time: 626703.596 us (+604.152 us / +0.096 %)
+                     Median time: 626160.176 us (1st quartile: 625902.093 us | 3rd quartile: 626400.628 us)
+
+             Average performance: 1.59719 runs/s
+                Best performance: 1.60057 runs/s (+0.00338 runs/s / +0.21170 %)
+               Worst performance: 1.59565 runs/s (-0.00154 runs/s / -0.09640 %)
+              Median performance: 1.59704 runs/s (1st quartile: 1.59769 | 3rd quartile: 1.59642)
+
+[ITERATIONS]        Average time: 62609.944 us (~42.568 us)
+                    Fastest time: 62477.678 us (-132.266 us / -0.211 %)
+                    Slowest time: 62670.360 us (+60.415 us / +0.096 %)
+                     Median time: 62616.018 us (1st quartile: 62590.209 us | 3rd quartile: 62640.063 us)
+
+             Average performance: 15.97190 iterations/s
+                Best performance: 16.00572 iterations/s (+0.03381 iterations/s / +0.21170 %)
+               Worst performance: 15.95651 iterations/s (-0.01540 iterations/s / -0.09640 %)
+              Median performance: 15.97035 iterations/s (1st quartile: 15.97694 | 3rd quartile: 15.96422)
+[ RUN      ] ChainingGetUnsuccessfulFixture.Chaining (30 runs, 10 iterations per run)
+[     DONE ] ChainingGetUnsuccessfulFixture.Chaining (18792.226896 ms)
+[   RUNS   ]        Average time: 626407.563 us (~580.895 us)
+                    Fastest time: 625530.837 us (-876.726 us / -0.140 %)
+                    Slowest time: 627758.053 us (+1350.490 us / +0.216 %)
+                     Median time: 626424.993 us (1st quartile: 625917.802 us | 3rd quartile: 626717.061 us)
+
+             Average performance: 1.59640 runs/s
+                Best performance: 1.59864 runs/s (+0.00224 runs/s / +0.14016 %)
+               Worst performance: 1.59297 runs/s (-0.00343 runs/s / -0.21513 %)
+              Median performance: 1.59636 runs/s (1st quartile: 1.59765 | 3rd quartile: 1.59562)
+
+[ITERATIONS]        Average time: 62640.756 us (~58.089 us)
+                    Fastest time: 62553.084 us (-87.673 us / -0.140 %)
+                    Slowest time: 62775.805 us (+135.049 us / +0.216 %)
+                     Median time: 62642.499 us (1st quartile: 62591.780 us | 3rd quartile: 62671.706 us)
+
+             Average performance: 15.96405 iterations/s
+                Best performance: 15.98642 iterations/s (+0.02237 iterations/s / +0.14016 %)
+               Worst performance: 15.92970 iterations/s (-0.03434 iterations/s / -0.21513 %)
+              Median performance: 15.96360 iterations/s (1st quartile: 15.97654 | 3rd quartile: 15.95616)
+[ RUN      ] BucketCuckoo4GetUnsuccessfulFixture.BucketCuckoo4 (30 runs, 10 iterations per run)
+[     DONE ] BucketCuckoo4GetUnsuccessfulFixture.BucketCuckoo4 (33492.779070 ms)
+[   RUNS   ]        Average time: 1116425.969 us (~6162.862 us)
+                    Fastest time: 1105989.720 us (-10436.249 us / -0.935 %)
+                    Slowest time: 1128608.447 us (+12182.478 us / +1.091 %)
+                     Median time: 1116720.398 us (1st quartile: 1111931.420 us | 3rd quartile: 1122151.220 us)
+
+             Average performance: 0.89572 runs/s
+                Best performance: 0.90417 runs/s (+0.00845 runs/s / +0.94361 %)
+               Worst performance: 0.88605 runs/s (-0.00967 runs/s / -1.07942 %)
+              Median performance: 0.89548 runs/s (1st quartile: 0.89934 | 3rd quartile: 0.89115)
+
+[ITERATIONS]        Average time: 111642.597 us (~616.286 us)
+                    Fastest time: 110598.972 us (-1043.625 us / -0.935 %)
+                    Slowest time: 112860.845 us (+1218.248 us / +1.091 %)
+                     Median time: 111672.040 us (1st quartile: 111193.142 us | 3rd quartile: 112215.122 us)
+
+             Average performance: 8.95715 iterations/s
+                Best performance: 9.04168 iterations/s (+0.08452 iterations/s / +0.94361 %)
+               Worst performance: 8.86047 iterations/s (-0.09669 iterations/s / -1.07942 %)
+              Median performance: 8.95479 iterations/s (1st quartile: 8.99336 | 3rd quartile: 8.91145)
+[ RUN      ] Cuckoo3InsertionFixture.Cuckoo3 (30 runs, 10 iterations per run)
+[     DONE ] Cuckoo3InsertionFixture.Cuckoo3 (30748.827769 ms)
+[   RUNS   ]        Average time: 1024960.926 us (~632.315 us)
+                    Fastest time: 1023651.024 us (-1309.902 us / -0.128 %)
+                    Slowest time: 1026850.623 us (+1889.697 us / +0.184 %)
+                     Median time: 1024872.194 us (1st quartile: 1024592.309 us | 3rd quartile: 1025248.580 us)
+
+             Average performance: 0.97565 runs/s
+                Best performance: 0.97690 runs/s (+0.00125 runs/s / +0.12796 %)
+               Worst performance: 0.97385 runs/s (-0.00180 runs/s / -0.18403 %)
+              Median performance: 0.97573 runs/s (1st quartile: 0.97600 | 3rd quartile: 0.97537)
+
+[ITERATIONS]        Average time: 102496.093 us (~63.231 us)
+                    Fastest time: 102365.102 us (-130.990 us / -0.128 %)
+                    Slowest time: 102685.062 us (+188.970 us / +0.184 %)
+                     Median time: 102487.219 us (1st quartile: 102459.231 us | 3rd quartile: 102524.858 us)
+
+             Average performance: 9.75647 iterations/s
+                Best performance: 9.76895 iterations/s (+0.01248 iterations/s / +0.12796 %)
+               Worst performance: 9.73851 iterations/s (-0.01795 iterations/s / -0.18403 %)
+              Median performance: 9.75731 iterations/s (1st quartile: 9.75998 | 3rd quartile: 9.75373)
+[ RUN      ] Cuckoo3GetFixture.Cuckoo3 (30 runs, 10 iterations per run)
+[     DONE ] Cuckoo3GetFixture.Cuckoo3 (8897.744090 ms)
+[   RUNS   ]        Average time: 296591.470 us (~248.909 us)
+                    Fastest time: 295964.780 us (-626.690 us / -0.211 %)
+                    Slowest time: 296998.077 us (+406.607 us / +0.137 %)
+                     Median time: 296625.699 us (1st quartile: 296454.979 us | 3rd quartile: 296739.352 us)
+
+             Average performance: 3.37164 runs/s
+                Best performance: 3.37878 runs/s (+0.00714 runs/s / +0.21174 %)
+               Worst performance: 3.36703 runs/s (-0.00462 runs/s / -0.13691 %)
+              Median performance: 3.37125 runs/s (1st quartile: 3.37319 | 3rd quartile: 3.36996)
+
+[ITERATIONS]        Average time: 29659.147 us (~24.891 us)
+                    Fastest time: 29596.478 us (-62.669 us / -0.211 %)
+                    Slowest time: 29699.808 us (+40.661 us / +0.137 %)
+                     Median time: 29662.570 us (1st quartile: 29645.498 us | 3rd quartile: 29673.935 us)
+
+             Average performance: 33.71641 iterations/s
+                Best performance: 33.78780 iterations/s (+0.07139 iterations/s / +0.21174 %)
+               Worst performance: 33.67025 iterations/s (-0.04616 iterations/s / -0.13691 %)
+              Median performance: 33.71252 iterations/s (1st quartile: 33.73193 | 3rd quartile: 33.69961)
+[ RUN      ] Cuckoo3GetUnsuccessfulFixture.Cuckoo3 (30 runs, 10 iterations per run)
+[     DONE ] Cuckoo3GetUnsuccessfulFixture.Cuckoo3 (6298.201455 ms)
+[   RUNS   ]        Average time: 209940.049 us (~337.177 us)
+                    Fastest time: 208814.504 us (-1125.545 us / -0.536 %)
+                    Slowest time: 210394.746 us (+454.698 us / +0.217 %)
+                     Median time: 209996.399 us (1st quartile: 209806.764 us | 3rd quartile: 210161.669 us)
+
+             Average performance: 4.76326 runs/s
+                Best performance: 4.78894 runs/s (+0.02567 runs/s / +0.53902 %)
+               Worst performance: 4.75297 runs/s (-0.01029 runs/s / -0.21612 %)
+              Median performance: 4.76199 runs/s (1st quartile: 4.76629 | 3rd quartile: 4.75824)
+
+[ITERATIONS]        Average time: 20994.005 us (~33.718 us)
+                    Fastest time: 20881.450 us (-112.554 us / -0.536 %)
+                    Slowest time: 21039.475 us (+45.470 us / +0.217 %)
+                     Median time: 20999.640 us (1st quartile: 20980.676 us | 3rd quartile: 21016.167 us)
+
+             Average performance: 47.63265 iterations/s
+                Best performance: 47.88939 iterations/s (+0.25675 iterations/s / +0.53902 %)
+               Worst performance: 47.52970 iterations/s (-0.10294 iterations/s / -0.21612 %)
+              Median performance: 47.61986 iterations/s (1st quartile: 47.66291 | 3rd quartile: 47.58242)
+[ RUN      ] Cuckoo4InsertionFixture.Cuckoo4 (30 runs, 10 iterations per run)
+[     DONE ] Cuckoo4InsertionFixture.Cuckoo4 (42662.534459 ms)
+[   RUNS   ]        Average time: 1422084.482 us (~1093.757 us)
+                    Fastest time: 1418329.239 us (-3755.243 us / -0.264 %)
+                    Slowest time: 1424670.728 us (+2586.246 us / +0.182 %)
+                     Median time: 1422089.088 us (1st quartile: 1421661.566 us | 3rd quartile: 1422680.437 us)
+
+             Average performance: 0.70319 runs/s
+                Best performance: 0.70505 runs/s (+0.00186 runs/s / +0.26477 %)
+               Worst performance: 0.70192 runs/s (-0.00128 runs/s / -0.18153 %)
+              Median performance: 0.70319 runs/s (1st quartile: 0.70340 | 3rd quartile: 0.70290)
+
+[ITERATIONS]        Average time: 142208.448 us (~109.376 us)
+                    Fastest time: 141832.924 us (-375.524 us / -0.264 %)
+                    Slowest time: 142467.073 us (+258.625 us / +0.182 %)
+                     Median time: 142208.909 us (1st quartile: 142166.157 us | 3rd quartile: 142268.044 us)
+
+             Average performance: 7.03193 iterations/s
+                Best performance: 7.05055 iterations/s (+0.01862 iterations/s / +0.26477 %)
+               Worst performance: 7.01917 iterations/s (-0.01277 iterations/s / -0.18153 %)
+              Median performance: 7.03191 iterations/s (1st quartile: 7.03402 | 3rd quartile: 7.02899)
+[ RUN      ] Cuckoo4GetFixture.Cuckoo4 (30 runs, 10 iterations per run)
+[     DONE ] Cuckoo4GetFixture.Cuckoo4 (11684.118606 ms)
+[   RUNS   ]        Average time: 389470.620 us (~332.486 us)
+                    Fastest time: 388802.199 us (-668.421 us / -0.172 %)
+                    Slowest time: 390058.314 us (+587.694 us / +0.151 %)
+                     Median time: 389461.996 us (1st quartile: 389253.605 us | 3rd quartile: 389628.388 us)
+
+             Average performance: 2.56759 runs/s
+                Best performance: 2.57200 runs/s (+0.00441 runs/s / +0.17192 %)
+               Worst performance: 2.56372 runs/s (-0.00387 runs/s / -0.15067 %)
+              Median performance: 2.56764 runs/s (1st quartile: 2.56902 | 3rd quartile: 2.56655)
+
+[ITERATIONS]        Average time: 38947.062 us (~33.249 us)
+                    Fastest time: 38880.220 us (-66.842 us / -0.172 %)
+                    Slowest time: 39005.831 us (+58.769 us / +0.151 %)
+                     Median time: 38946.200 us (1st quartile: 38925.361 us | 3rd quartile: 38962.839 us)
+
+             Average performance: 25.67588 iterations/s
+                Best performance: 25.72002 iterations/s (+0.04414 iterations/s / +0.17192 %)
+               Worst performance: 25.63719 iterations/s (-0.03869 iterations/s / -0.15067 %)
+              Median performance: 25.67645 iterations/s (1st quartile: 25.69019 | 3rd quartile: 25.66548)
+[ RUN      ] Cuckoo4GetUnsuccessfulFixture.Cuckoo4 (30 runs, 10 iterations per run)
+[     DONE ] Cuckoo4GetUnsuccessfulFixture.Cuckoo4 (9093.890402 ms)
+[   RUNS   ]        Average time: 303129.680 us (~415.757 us)
+                    Fastest time: 301840.757 us (-1288.923 us / -0.425 %)
+                    Slowest time: 303934.923 us (+805.243 us / +0.266 %)
+                     Median time: 303134.062 us (1st quartile: 302892.970 us | 3rd quartile: 303415.229 us)
+
+             Average performance: 3.29892 runs/s
+                Best performance: 3.31301 runs/s (+0.01409 runs/s / +0.42702 %)
+               Worst performance: 3.29018 runs/s (-0.00874 runs/s / -0.26494 %)
+              Median performance: 3.29887 runs/s (1st quartile: 3.30150 | 3rd quartile: 3.29581)
+
+[ITERATIONS]        Average time: 30312.968 us (~41.576 us)
+                    Fastest time: 30184.076 us (-128.892 us / -0.425 %)
+                    Slowest time: 30393.492 us (+80.524 us / +0.266 %)
+                     Median time: 30313.406 us (1st quartile: 30289.297 us | 3rd quartile: 30341.523 us)
+
+             Average performance: 32.98918 iterations/s
+                Best performance: 33.13005 iterations/s (+0.14087 iterations/s / +0.42702 %)
+               Worst performance: 32.90178 iterations/s (-0.08740 iterations/s / -0.26494 %)
+              Median performance: 32.98870 iterations/s (1st quartile: 33.01496 | 3rd quartile: 32.95813)
+[ RUN      ] BucketCuckoo4InsertionFixture.BucketCuckoo4 (30 runs, 10 iterations per run)
+[     DONE ] BucketCuckoo4InsertionFixture.BucketCuckoo4 (14203.481794 ms)
+[   RUNS   ]        Average time: 473449.393 us (~1121.320 us)
+                    Fastest time: 471459.251 us (-1990.142 us / -0.420 %)
+                    Slowest time: 475812.693 us (+2363.300 us / +0.499 %)
+                     Median time: 473576.821 us (1st quartile: 472469.786 us | 3rd quartile: 474283.747 us)
+
+             Average performance: 2.11216 runs/s
+                Best performance: 2.12107 runs/s (+0.00892 runs/s / +0.42212 %)
+               Worst performance: 2.10167 runs/s (-0.01049 runs/s / -0.49669 %)
+              Median performance: 2.11159 runs/s (1st quartile: 2.11654 | 3rd quartile: 2.10844)
+
+[ITERATIONS]        Average time: 47344.939 us (~112.132 us)
+                    Fastest time: 47145.925 us (-199.014 us / -0.420 %)
+                    Slowest time: 47581.269 us (+236.330 us / +0.499 %)
+                     Median time: 47357.682 us (1st quartile: 47246.979 us | 3rd quartile: 47428.375 us)
+
+             Average performance: 21.12158 iterations/s
+                Best performance: 21.21074 iterations/s (+0.08916 iterations/s / +0.42212 %)
+               Worst performance: 21.01667 iterations/s (-0.10491 iterations/s / -0.49669 %)
+              Median performance: 21.11590 iterations/s (1st quartile: 21.16537 | 3rd quartile: 21.08442)
+[ RUN      ] BucketCuckoo4GetFixture.BucketCuckoo4 (30 runs, 10 iterations per run)
+[     DONE ] BucketCuckoo4GetFixture.BucketCuckoo4 (33476.517220 ms)
+[   RUNS   ]        Average time: 1115883.907 us (~6514.442 us)
+                    Fastest time: 1100610.354 us (-15273.553 us / -1.369 %)
+                    Slowest time: 1129545.243 us (+13661.336 us / +1.224 %)
+                     Median time: 1116565.548 us (1st quartile: 1110043.079 us | 3rd quartile: 1120564.886 us)
+
+             Average performance: 0.89615 runs/s
+                Best performance: 0.90859 runs/s (+0.01244 runs/s / +1.38773 %)
+               Worst performance: 0.88531 runs/s (-0.01084 runs/s / -1.20945 %)
+              Median performance: 0.89560 runs/s (1st quartile: 0.90087 | 3rd quartile: 0.89241)
+
+[ITERATIONS]        Average time: 111588.391 us (~651.444 us)
+                    Fastest time: 110061.035 us (-1527.355 us / -1.369 %)
+                    Slowest time: 112954.524 us (+1366.134 us / +1.224 %)
+                     Median time: 111656.555 us (1st quartile: 111004.308 us | 3rd quartile: 112056.489 us)
+
+             Average performance: 8.96151 iterations/s
+                Best performance: 9.08587 iterations/s (+0.12436 iterations/s / +1.38773 %)
+               Worst performance: 8.85312 iterations/s (-0.10839 iterations/s / -1.20945 %)
+              Median performance: 8.95603 iterations/s (1st quartile: 9.00866 | 3rd quartile: 8.92407)
+[ RUN      ] FastIntegerLinearInsertionFixture.FastIntegerLinear (30 runs, 10 iterations per run)
+[     DONE ] FastIntegerLinearInsertionFixture.FastIntegerLinear (7628.634103 ms)
+[   RUNS   ]        Average time: 254287.803 us (~270.395 us)
+                    Fastest time: 253725.907 us (-561.896 us / -0.221 %)
+                    Slowest time: 254808.898 us (+521.095 us / +0.205 %)
+                     Median time: 254214.663 us (1st quartile: 254105.178 us | 3rd quartile: 254509.136 us)
+
+             Average performance: 3.93255 runs/s
+                Best performance: 3.94126 runs/s (+0.00871 runs/s / +0.22146 %)
+               Worst performance: 3.92451 runs/s (-0.00804 runs/s / -0.20450 %)
+              Median performance: 3.93368 runs/s (1st quartile: 3.93538 | 3rd quartile: 3.92913)
+
+[ITERATIONS]        Average time: 25428.780 us (~27.040 us)
+                    Fastest time: 25372.591 us (-56.190 us / -0.221 %)
+                    Slowest time: 25480.890 us (+52.109 us / +0.205 %)
+                     Median time: 25421.466 us (1st quartile: 25410.518 us | 3rd quartile: 25450.914 us)
+
+             Average performance: 39.32552 iterations/s
+                Best performance: 39.41261 iterations/s (+0.08709 iterations/s / +0.22146 %)
+               Worst performance: 39.24510 iterations/s (-0.08042 iterations/s / -0.20450 %)
+              Median performance: 39.33683 iterations/s (1st quartile: 39.35378 | 3rd quartile: 39.29132)
+[ RUN      ] FastIntegerLinearGetFixture.FastIntegerLinear (30 runs, 10 iterations per run)
+[     DONE ] FastIntegerLinearGetFixture.FastIntegerLinear (5498.190173 ms)
+[   RUNS   ]        Average time: 183273.006 us (~243.029 us)
+                    Fastest time: 182578.755 us (-694.251 us / -0.379 %)
+                    Slowest time: 183750.552 us (+477.546 us / +0.261 %)
+                     Median time: 183313.413 us (1st quartile: 183133.715 us | 3rd quartile: 183451.110 us)
+
+             Average performance: 5.45634 runs/s
+                Best performance: 5.47709 runs/s (+0.02075 runs/s / +0.38025 %)
+               Worst performance: 5.44216 runs/s (-0.01418 runs/s / -0.25989 %)
+              Median performance: 5.45514 runs/s (1st quartile: 5.46049 | 3rd quartile: 5.45104)
+
+[ITERATIONS]        Average time: 18327.301 us (~24.303 us)
+                    Fastest time: 18257.875 us (-69.425 us / -0.379 %)
+                    Slowest time: 18375.055 us (+47.755 us / +0.261 %)
+                     Median time: 18331.341 us (1st quartile: 18313.372 us | 3rd quartile: 18345.111 us)
+
+             Average performance: 54.56341 iterations/s
+                Best performance: 54.77089 iterations/s (+0.20748 iterations/s / +0.38025 %)
+               Worst performance: 54.42161 iterations/s (-0.14180 iterations/s / -0.25989 %)
+              Median performance: 54.55138 iterations/s (1st quartile: 54.60491 | 3rd quartile: 54.51044)
+[ RUN      ] FastIntegerLinearGetUnsuccessfulFixture.FastIntegerLinear (30 runs, 10 iterations per run)
+[     DONE ] FastIntegerLinearGetUnsuccessfulFixture.FastIntegerLinear (5494.243895 ms)
+[   RUNS   ]        Average time: 183141.463 us (~217.310 us)
+                    Fastest time: 182717.896 us (-423.567 us / -0.231 %)
+                    Slowest time: 183648.280 us (+506.817 us / +0.277 %)
+                     Median time: 183124.418 us (1st quartile: 183010.604 us | 3rd quartile: 183308.122 us)
+
+             Average performance: 5.46026 runs/s
+                Best performance: 5.47292 runs/s (+0.01266 runs/s / +0.23181 %)
+               Worst performance: 5.44519 runs/s (-0.01507 runs/s / -0.27597 %)
+              Median performance: 5.46077 runs/s (1st quartile: 5.46416 | 3rd quartile: 5.45530)
+
+[ITERATIONS]        Average time: 18314.146 us (~21.731 us)
+                    Fastest time: 18271.790 us (-42.357 us / -0.231 %)
+                    Slowest time: 18364.828 us (+50.682 us / +0.277 %)
+                     Median time: 18312.442 us (1st quartile: 18301.060 us | 3rd quartile: 18330.812 us)
+
+             Average performance: 54.60260 iterations/s
+                Best performance: 54.72918 iterations/s (+0.12658 iterations/s / +0.23181 %)
+               Worst performance: 54.45191 iterations/s (-0.15069 iterations/s / -0.27597 %)
+              Median performance: 54.60768 iterations/s (1st quartile: 54.64164 | 3rd quartile: 54.55296)
+[ RUN      ] FastIntegerQuadraticInsertionFixture.FastIntegerQuadratic (30 runs, 10 iterations per run)
+[     DONE ] FastIntegerQuadraticInsertionFixture.FastIntegerQuadratic (7717.819234 ms)
+[   RUNS   ]        Average time: 257260.641 us (~250.875 us)
+                    Fastest time: 256610.035 us (-650.606 us / -0.253 %)
+                    Slowest time: 257712.261 us (+451.620 us / +0.176 %)
+                     Median time: 257271.595 us (1st quartile: 257106.966 us | 3rd quartile: 257412.499 us)
+
+             Average performance: 3.88711 runs/s
+                Best performance: 3.89696 runs/s (+0.00986 runs/s / +0.25354 %)
+               Worst performance: 3.88030 runs/s (-0.00681 runs/s / -0.17524 %)
+              Median performance: 3.88694 runs/s (1st quartile: 3.88943 | 3rd quartile: 3.88482)
+
+[ITERATIONS]        Average time: 25726.064 us (~25.087 us)
+                    Fastest time: 25661.003 us (-65.061 us / -0.253 %)
+                    Slowest time: 25771.226 us (+45.162 us / +0.176 %)
+                     Median time: 25727.160 us (1st quartile: 25710.697 us | 3rd quartile: 25741.250 us)
+
+             Average performance: 38.87108 iterations/s
+                Best performance: 38.96964 iterations/s (+0.09855 iterations/s / +0.25354 %)
+               Worst performance: 38.80297 iterations/s (-0.06812 iterations/s / -0.17524 %)
+              Median performance: 38.86943 iterations/s (1st quartile: 38.89432 | 3rd quartile: 38.84815)
+[ RUN      ] FastIntegerQuadraticGetFixture.FastIntegerQuadratic (30 runs, 10 iterations per run)
+[     DONE ] FastIntegerQuadraticGetFixture.FastIntegerQuadratic (5863.488504 ms)
+[   RUNS   ]        Average time: 195449.617 us (~221.762 us)
+                    Fastest time: 195056.870 us (-392.747 us / -0.201 %)
+                    Slowest time: 195867.991 us (+418.374 us / +0.214 %)
+                     Median time: 195440.149 us (1st quartile: 195255.963 us | 3rd quartile: 195616.960 us)
+
+             Average performance: 5.11641 runs/s
+                Best performance: 5.12671 runs/s (+0.01030 runs/s / +0.20135 %)
+               Worst performance: 5.10548 runs/s (-0.01093 runs/s / -0.21360 %)
+              Median performance: 5.11666 runs/s (1st quartile: 5.12148 | 3rd quartile: 5.11203)
+
+[ITERATIONS]        Average time: 19544.962 us (~22.176 us)
+                    Fastest time: 19505.687 us (-39.275 us / -0.201 %)
+                    Slowest time: 19586.799 us (+41.837 us / +0.214 %)
+                     Median time: 19544.015 us (1st quartile: 19525.596 us | 3rd quartile: 19561.696 us)
+
+             Average performance: 51.16408 iterations/s
+                Best performance: 51.26710 iterations/s (+0.10302 iterations/s / +0.20135 %)
+               Worst performance: 51.05479 iterations/s (-0.10929 iterations/s / -0.21360 %)
+              Median performance: 51.16656 iterations/s (1st quartile: 51.21483 | 3rd quartile: 51.12031)
+[ RUN      ] FastIntegerQuadraticGetUnsuccessfulFixture.FastIntegerQuadratic (30 runs, 10 iterations per run)
+[     DONE ] FastIntegerQuadraticGetUnsuccessfulFixture.FastIntegerQuadratic (5863.883167 ms)
+[   RUNS   ]        Average time: 195462.772 us (~256.650 us)
+                    Fastest time: 194954.919 us (-507.853 us / -0.260 %)
+                    Slowest time: 195909.027 us (+446.255 us / +0.228 %)
+                     Median time: 195435.019 us (1st quartile: 195275.520 us | 3rd quartile: 195691.019 us)
+
+             Average performance: 5.11606 runs/s
+                Best performance: 5.12939 runs/s (+0.01333 runs/s / +0.26050 %)
+               Worst performance: 5.10441 runs/s (-0.01165 runs/s / -0.22779 %)
+              Median performance: 5.11679 runs/s (1st quartile: 5.12097 | 3rd quartile: 5.11010)
+
+[ITERATIONS]        Average time: 19546.277 us (~25.665 us)
+                    Fastest time: 19495.492 us (-50.785 us / -0.260 %)
+                    Slowest time: 19590.903 us (+44.625 us / +0.228 %)
+                     Median time: 19543.502 us (1st quartile: 19527.552 us | 3rd quartile: 19569.102 us)
+
+             Average performance: 51.16064 iterations/s
+                Best performance: 51.29391 iterations/s (+0.13327 iterations/s / +0.26050 %)
+               Worst performance: 51.04410 iterations/s (-0.11654 iterations/s / -0.22779 %)
+              Median performance: 51.16790 iterations/s (1st quartile: 51.20970 | 3rd quartile: 51.10097)
+[ RUN      ] FastIntegerDoubleHashingInsertionFixture.FastIntegerDoubleHashing (30 runs, 10 iterations per run)
+[     DONE ] FastIntegerDoubleHashingInsertionFixture.FastIntegerDoubleHashing (7811.252328 ms)
+[   RUNS   ]        Average time: 260375.078 us (~272.876 us)
+                    Fastest time: 259861.891 us (-513.187 us / -0.197 %)
+                    Slowest time: 260857.358 us (+482.280 us / +0.185 %)
+                     Median time: 260450.836 us (1st quartile: 260172.554 us | 3rd quartile: 260567.214 us)
+
+             Average performance: 3.84061 runs/s
+                Best performance: 3.84820 runs/s (+0.00758 runs/s / +0.19748 %)
+               Worst performance: 3.83351 runs/s (-0.00710 runs/s / -0.18488 %)
+              Median performance: 3.83950 runs/s (1st quartile: 3.84360 | 3rd quartile: 3.83778)
+
+[ITERATIONS]        Average time: 26037.508 us (~27.288 us)
+                    Fastest time: 25986.189 us (-51.319 us / -0.197 %)
+                    Slowest time: 26085.736 us (+48.228 us / +0.185 %)
+                     Median time: 26045.084 us (1st quartile: 26017.255 us | 3rd quartile: 26056.721 us)
+
+             Average performance: 38.40613 iterations/s
+                Best performance: 38.48198 iterations/s (+0.07585 iterations/s / +0.19748 %)
+               Worst performance: 38.33513 iterations/s (-0.07101 iterations/s / -0.18488 %)
+              Median performance: 38.39496 iterations/s (1st quartile: 38.43603 | 3rd quartile: 38.37781)
+[ RUN      ] FastIntegerDoubleHashingGetFixture.FastIntegerDoubleHashing (30 runs, 10 iterations per run)
+[     DONE ] FastIntegerDoubleHashingGetFixture.FastIntegerDoubleHashing (6104.817769 ms)
+[   RUNS   ]        Average time: 203493.926 us (~258.803 us)
+                    Fastest time: 202905.184 us (-588.742 us / -0.289 %)
+                    Slowest time: 204011.579 us (+517.653 us / +0.254 %)
+                     Median time: 203505.029 us (1st quartile: 203330.943 us | 3rd quartile: 203679.436 us)
+
+             Average performance: 4.91415 runs/s
+                Best performance: 4.92841 runs/s (+0.01426 runs/s / +0.29016 %)
+               Worst performance: 4.90168 runs/s (-0.01247 runs/s / -0.25374 %)
+              Median performance: 4.91388 runs/s (1st quartile: 4.91809 | 3rd quartile: 4.90968)
+
+[ITERATIONS]        Average time: 20349.393 us (~25.880 us)
+                    Fastest time: 20290.518 us (-58.874 us / -0.289 %)
+                    Slowest time: 20401.158 us (+51.765 us / +0.254 %)
+                     Median time: 20350.503 us (1st quartile: 20333.094 us | 3rd quartile: 20367.944 us)
+
+             Average performance: 49.14152 iterations/s
+                Best performance: 49.28410 iterations/s (+0.14259 iterations/s / +0.29016 %)
+               Worst performance: 49.01683 iterations/s (-0.12469 iterations/s / -0.25374 %)
+              Median performance: 49.13883 iterations/s (1st quartile: 49.18091 | 3rd quartile: 49.09676)
+[ RUN      ] FastIntegerDoubleHashingGetUnsuccessfulFixture.FastIntegerDoubleHashing (30 runs, 10 iterations per run)
+[     DONE ] FastIntegerDoubleHashingGetUnsuccessfulFixture.FastIntegerDoubleHashing (6104.798212 ms)
+[   RUNS   ]        Average time: 203493.274 us (~265.188 us)
+                    Fastest time: 202955.839 us (-537.435 us / -0.264 %)
+                    Slowest time: 203990.740 us (+497.466 us / +0.244 %)
+                     Median time: 203504.228 us (1st quartile: 203355.308 us | 3rd quartile: 203669.818 us)
+
+             Average performance: 4.91417 runs/s
+                Best performance: 4.92718 runs/s (+0.01301 runs/s / +0.26480 %)
+               Worst performance: 4.90218 runs/s (-0.01198 runs/s / -0.24387 %)
+              Median performance: 4.91390 runs/s (1st quartile: 4.91750 | 3rd quartile: 4.90991)
+
+[ITERATIONS]        Average time: 20349.327 us (~26.519 us)
+                    Fastest time: 20295.584 us (-53.743 us / -0.264 %)
+                    Slowest time: 20399.074 us (+49.747 us / +0.244 %)
+                     Median time: 20350.423 us (1st quartile: 20335.531 us | 3rd quartile: 20366.982 us)
+
+             Average performance: 49.14167 iterations/s
+                Best performance: 49.27180 iterations/s (+0.13013 iterations/s / +0.26480 %)
+               Worst performance: 49.02183 iterations/s (-0.11984 iterations/s / -0.24387 %)
+              Median performance: 49.13903 iterations/s (1st quartile: 49.17501 | 3rd quartile: 49.09908)
+[==========] Ran 21 benchmarks.

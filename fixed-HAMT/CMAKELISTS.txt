@@ -21,4 +21,4 @@ file(GLOB SOURCES
 		${TESTS_SOURCES}/*.cu
 	)
 
-add_executable(vEB_tests ${SOURCES})
+add_executable(fixed-HAMT_tests ${SOURCES})

@@ -1,12 +1,12 @@
-#ifndef CONCURRENT_VEB_HPP
-#define CONCURRENT_VEB_HPP
+#ifndef CONCURRENT_HAMT_HPP
+#define CONCURRENT_HAMT_HPP
 
 #include "concurrent/allocators/default_allocator.cuh"
 #include "concurrent/containers/hash_tables/fixed_fast_integer.cuh"
 #include "utility/pair.cuh"
 
 template <typename Key, typename Value, unsigned int NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO = 5u, unsigned int NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO = 10u>
-class vEB
+class HAMT
 {
 	static_assert(NUMBER_OF_CHILDREN_PER_NODE_POWER_OF_TWO >= 5, "Warp-based");
 	static_assert(NUMBER_OF_BITS_PER_NODE_POWER_OF_TWO >= 10, "Warp-based");
@@ -36,7 +36,7 @@ class vEB
 			gpu::atomic<gpu::UInt32> bits[NUMBER_OF_ELEMENTS_AT_BOTTOM];
 		};
 
-		InternalNode m_vEB;
+		InternalNode m_HAMT;
 		using Map = gpu::concurrent::fixed_fast_integer<key_type, mapped_type>;
 		using Map_iterator = typename Map::iterator;
 		Map m_bottom;
@@ -51,10 +51,10 @@ class vEB
 		__device__ iterator end();
 		__device__ const_iterator end() const;
 
-		__device__ vEB() = default;
-		__device__ vEB(block_threads group, allocator_type& allocator, unsigned int expected_number_of_elements);
-		__device__ vEB(threads group, allocator_type& allocator, unsigned int expected_number_of_elements);
-		__device__ vEB(vEB&& other) = default;
+		__device__ HAMT() = default;
+		__device__ HAMT(block_threads group, allocator_type& allocator, unsigned int expected_number_of_elements);
+		__device__ HAMT(threads group, allocator_type& allocator, unsigned int expected_number_of_elements);
+		__device__ HAMT(HAMT&& other) = default;
 
 		__device__ void clear(block_threads group);
 		__device__ void clear(threads group);
@@ -65,7 +65,7 @@ class vEB
 
 		__device__ iterator insert(threads group, key_type key, mapped_type value);
 
-		__device__ vEB& operator=(vEB&& other) = default;
+		__device__ HAMT& operator=(HAMT&& other) = default;
 
 		__device__ iterator predecessor(threads group, key_type key);
 
@@ -118,6 +118,6 @@ class vEB
 		allocator_type* m_allocator;
 };
 
-#include "vEB.cu"
+#include "fixed-HAMT.cu"
 
-#endif // CONCURRENT_VEB_HPP
+#endif // CONCURRENT_HAMT_HPP
